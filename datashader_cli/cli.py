@@ -1,12 +1,9 @@
 """Console script for datashader_cli."""
-import sys
-import datashader as ds
-import datashader.transfer_functions as tf
+
 import click
-import pandas as pd
+
 import colorcet as cc
-import matplotlib.pyplot as plt
-from datashader.mpl_ext import dsshow, alpha_colormap
+import sys
 
 
 @click.group()
@@ -65,6 +62,7 @@ def points(data_path, x, y, w=600, h=600, x_range=None, y_range=None,
         df['x'] = df.geometry.x
         df['y'] = df.geometry.y
     else:
+        import pandas as pd
         if data_path.endswith('.csv'):
             df = pd.read_csv(data_path)
         elif data_path.endswith('.parquet'):
@@ -91,15 +89,17 @@ def points(data_path, x, y, w=600, h=600, x_range=None, y_range=None,
         "x_axis_type":'linear',
         "y_axis_type":'linear',
     }
-
+    import datashader as ds
+    import datashader.transfer_functions as tf
+    
     canvas = ds.Canvas(**cas_keywords)
 
 
     # aggregation
     agg_keywords ={
         "source":df,
-        "x":"x", 
-        "y":"y",
+        "x":x, 
+        "y":y,
         "agg":ds.count()
 
     }
@@ -120,6 +120,9 @@ def points(data_path, x, y, w=600, h=600, x_range=None, y_range=None,
 
 
     if matplotlib:
+        import matplotlib.pyplot as plt
+        from datashader.mpl_ext import dsshow, alpha_colormap
+
         fig, ax = plt.subplots()
         artist0 = dsshow(df, ds.Point(x, y), aggregator = agg_keywords["agg"], 
                          x_range=x_range, y_range=y_range,
@@ -154,6 +157,7 @@ def points(data_path, x, y, w=600, h=600, x_range=None, y_range=None,
         img = tf.shade(**shade_keywords)
 
         if background:
+            
             img = tf.set_background(img, background)
         
 
