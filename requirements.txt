@@ -1,0 +1,6 @@
+click
+datashader
+pandas
+matplotlib
+geopandas
+pyarrow
