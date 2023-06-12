@@ -1,7 +1,7 @@
 """Console script for datashader_cli."""
 
 import click
-
+import datetime
 import colorcet as cc
 import sys
 
@@ -48,7 +48,9 @@ def points(data_path, x, y, w=600, h=600, x_range=None, y_range=None,
     """
 
     # add more data format support
+    
     # load data
+    t1 = datetime.datetime.now()
     if geo:
         import geopandas as gpd
         if data_path.endswith('.parquet'):
@@ -57,10 +59,11 @@ def points(data_path, x, y, w=600, h=600, x_range=None, y_range=None,
             df = gpd.read_file(data_path)
         # check if df is projected, if not, project it
         if df.crs is not None:
-            df = df.to_crs(epsg=3857)
+            if not df.crs.is_projected:
+                df = df.to_crs(epsg=3857)
         
-        df['x'] = df.geometry.x
-        df['y'] = df.geometry.y
+        df[x] = df.geometry.x
+        df[y] = df.geometry.y
     else:
         import pandas as pd
         if data_path.endswith('.csv'):
@@ -74,7 +77,10 @@ def points(data_path, x, y, w=600, h=600, x_range=None, y_range=None,
         else:
             raise ValueError('Unsupported data format')
 
+    t2 = datetime.datetime.now()
+    print("Time to load data: ", t2-t1)
     # if w and h are not specified, use the default values
+    t3 = datetime.datetime.now()
     if x_range:
         x_range = tuple(map(float, x_range.split(',')))
     if y_range:
@@ -91,10 +97,12 @@ def points(data_path, x, y, w=600, h=600, x_range=None, y_range=None,
     }
     import datashader as ds
     import datashader.transfer_functions as tf
-    
+
     canvas = ds.Canvas(**cas_keywords)
 
-
+    t4 = datetime.datetime.now()
+    print("Time to create canvas: ", t4-t3)
+    t5 = datetime.datetime.now()
     # aggregation
     agg_keywords ={
         "source":df,
@@ -163,7 +171,9 @@ def points(data_path, x, y, w=600, h=600, x_range=None, y_range=None,
 
         # save to file
         img.to_pil().save(output_apth)
-
+    t6 = datetime.datetime.now()
+    print("Time to create image: ", t6-t5)
+    print("Total time: ", t6-t1)
 main.add_command(points)
 
 

@@ -15,6 +15,38 @@
 pip install git+https://github.com/wybert/datashader-cli.git
 ```
 
+## Quick Start
+
+Visualize 10 million NYC taxi trip data points in Gigabytes.
+
+Create a shaded scatter plot of points and save it to png file, set background color to black. 
+
+```bash
+datashader_cli points nyc_taxi.parquet --x pickup_x --y pickup_y pickup-scatter.png --background black
+
+```
+
+![](./docs/pickup-scatter.png)
+
+Visualize the geospaital data, support Geoparquet, shapefile, geojson, geopackage, etc.
+
+
+```bash
+datashader_cli points data.geo.parquet data.png --geo true
+```
+
+![](./docs/data1.png)
+
+
+Use matplotlib to render the image, matplotlib will enable the colorbar, but it can't use spread function
+
+
+```bash
+datashader_cli points data.geo.parquet data.png --geo true --matplotlib true
+```
+
+![](./docs/data.png)
+
 ## Usage
 
 ```bash
