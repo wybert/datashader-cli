@@ -27,6 +27,12 @@ pip install git+https://github.com/wybert/datashader-cli.git
 
 Visualize 10 million NYC taxi trip data points in Gigabytes.
 
+
+<!-- tips -->
+
+> Tips:  You can download the NYC taxi trip data from [here](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page) or use the command `datashader examples` to download the datashader examples. The nyc_taxi.csv file will be located in `datashader-examples/data/nyc_taxi.csv`.
+You can also find some data in this repository, download these use `wget https://raw.githubusercontent.com/wybert/datashader-cli/main/tests/data.csv` and `wget https://raw.githubusercontent.com/wybert/datashader-cli/main/tests/data.geo.parquet`, etc.
+
 Create a shaded scatter plot of points and save it to png file, set background color to black. 
 
 ```bash
