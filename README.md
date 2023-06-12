@@ -36,7 +36,7 @@ datashader_cli points nyc_taxi.parquet --x pickup_x --y pickup_y pickup-scatter.
 
 ![](./docs/pickup-scatter.png)
 
-Visualize the geospaital data, support Geoparquet, shapefile, geojson, geopackage, etc.
+Visualize the geospaital data, support Geoparquet, Shapefile, Geojson, Geopackage, etc.
 
 
 ```bash
