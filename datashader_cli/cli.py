@@ -8,9 +8,23 @@ import sys
 
 @click.group()
 def main(args=None):
-    """Quick visualization of large datasets using CLI based on datashader.
+    """Quick visualization of large datasets using CLI based on datashader. Supported data format: csv, parquet, hdf, feather, geoparquet, shapefile, geojson, geopackage, etc.
     
-    Supported data format: csv, parquet, hdf, feather, geoparquet, shapefile, geojson, geopackage, etc.
+    Examples:
+
+    1. Create a shaded scatter plot of points and save it to png file, set background color to black.
+    
+    `datashader_cli points nyc_taxi.parquet --x pickup_x --y pickup_y pickup-scatter.png --background black`
+
+    2. Visualize the geospaital data, support Geoparquet, shapefile, geojson, geopackage, etc.
+
+    `datashader_cli points data.geo.parquet data.png --geo true`
+
+    3. Use matplotlib to render the image
+
+    `datashader_cli points data.geo.parquet data.png --geo true --matplotlib true`
+
+
     """
     
     return 0
