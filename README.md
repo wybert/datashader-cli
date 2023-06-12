@@ -11,6 +11,14 @@
 
 ## Installation
 
+### Use pip
+
+````bash
+pip install datashader-cli
+````
+
+### Use pip from Github
+
 ```bash
 pip install git+https://github.com/wybert/datashader-cli.git
 ```
