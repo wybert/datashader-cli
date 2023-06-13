@@ -240,7 +240,9 @@ def graphplot(nodes, edges, name="", canvas=None, cat=None, cvsopts=None, edge_c
 def network(nodes_file, edges_file, output_path, w=600, h=600, x="x",y="y", source="source", target="target", id=None,
             layout="forceatlas2",cat=None, 
             background="white", bundle=False, bw=None, decay=None, edge_cmap=None):
+    """Visualize network data.
 
+    """
     # read data
     import pandas as pd
     from datashader.layout import random_layout, circular_layout, forceatlas2_layout
