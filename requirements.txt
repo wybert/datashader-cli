@@ -4,3 +4,4 @@ pandas
 matplotlib
 geopandas
 pyarrow
+scikit-image
